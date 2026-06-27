@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>คู่มือติดตั้ง | ระบบใบลา APPLEPINE DIGITAL</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #1B5E20; --accent: #2E7D32; --pale: #E8F5E9;
+      --text: #1A1A1A; --muted: #555; --border: #D0D0D0;
+      --surface: #fff; --bg: #F4F7F4;
+      --radius: 12px; --shadow: 0 2px 14px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Sarabun', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+    .header {
+      background: linear-gradient(135deg, #1B5E20, #2E7D32);
+      padding: 28px 24px; text-align: center; color: #fff;
+    }
+    .header h1 { font-size: 24px; font-weight: 700; }
+    .header p  { font-size: 14px; opacity: 0.8; margin-top: 6px; }
+    .main { max-width: 780px; margin: 0 auto; padding: 32px 16px 60px; }
+    .toc {
+      background: var(--surface); border-radius: var(--radius); padding: 20px 24px;
+      box-shadow: var(--shadow); margin-bottom: 28px;
+    }
+    .toc h2 { font-size: 16px; color: var(--primary); margin-bottom: 12px; }
+    .toc ol { padding-left: 20px; }
+    .toc li { margin-bottom: 6px; }
+    .toc a  { color: var(--accent); text-decoration: none; font-size: 15px; }
+    .toc a:hover { text-decoration: underline; }
+
+    .section {
+      background: var(--surface); border-radius: var(--radius);
+      box-shadow: var(--shadow); margin-bottom: 24px; overflow: hidden;
+    }
+    .section-header {
+      background: var(--pale); border-bottom: 2px solid #A5D6A7;
+      padding: 16px 24px; display: flex; align-items: center; gap: 12px;
+    }
+    .step-badge {
+      width: 36px; height: 36px; background: var(--primary); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700; flex-shrink: 0;
+    }
+    .section-header h2 { font-size: 17px; font-weight: 700; color: var(--primary); }
+    .section-body { padding: 24px; }
+    .section-body p { font-size: 15px; margin-bottom: 12px; color: var(--text); }
+
+    /* Steps inside section */
+    .steps { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .steps li {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 14px 16px; background: #FAFAFA;
+      border-radius: 10px; border: 1px solid var(--border);
+    }
+    .steps li .num {
+      width: 28px; height: 28px; background: var(--accent); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; flex-shrink: 0; margin-top: 2px;
+    }
+    .steps li .content { flex: 1; }
+    .steps li .content strong { display: block; font-size: 15px; margin-bottom: 4px; }
+    .steps li .content p { font-size: 14px; color: var(--muted); margin: 0; }
+
+    code {
+      background: #E8F5E9; color: #1B5E20; padding: 2px 7px;
+      border-radius: 5px; font-family: 'Courier New', monospace; font-size: 14px;
+    }
+    .code-block {
+      background: #1A1A1A; color: #A5D6A7; padding: 16px 20px;
+      border-radius: 10px; font-family: 'Courier New', monospace;
+      font-size: 14px; overflow-x: auto; margin: 12px 0; line-height: 1.6;
+      white-space: pre-wrap; word-break: break-all;
+    }
+    .code-block .comment { color: #666; }
+    .code-block .key { color: #80CBC4; }
+    .code-block .val { color: #FFD54F; }
+
+    .tip {
+      background: #E3F2FD; border: 1px solid #90CAF9; border-radius: 8px;
+      padding: 12px 16px; font-size: 14px; color: #1565C0;
+      display: flex; gap: 8px; margin-top: 12px;
+    }
+    .warn {
+      background: #FFF3E0; border: 1px solid #FFCC80; border-radius: 8px;
+      padding: 12px 16px; font-size: 14px; color: #E65100;
+      display: flex; gap: 8px; margin-top: 12px;
+    }
+    .success-box {
+      background: #E8F5E9; border: 2px solid #66BB6A; border-radius: 10px;
+      padding: 20px; text-align: center; margin-top: 12px;
+    }
+    .success-box h3 { color: var(--primary); font-size: 18px; margin-bottom: 8px; }
+    .success-box p  { color: #388E3C; font-size: 14px; }
+
+    img-placeholder {
+      display: block; background: #E0E0E0; border-radius: 8px;
+      height: 160px; margin: 12px 0; display: flex; align-items: center;
+      justify-content: center; color: #999; font-size: 14px;
+    }
+
+    .url-example {
+      background: #F3E5F5; border: 1px solid #CE93D8; border-radius: 8px;
+      padding: 12px 16px; font-size: 14px; color: #6A1B9A; font-weight: 500;
+      margin-top: 8px; word-break: break-all;
+    }
+
+    .footer { text-align: center; padding: 20px; font-size: 13px; color: var(--muted); }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--primary); color: #fff; padding: 10px 20px;
+      border-radius: 8px; text-decoration: none; font-size: 15px; font-weight: 600;
+      margin-top: 8px; transition: background 0.2s;
+    }
+    .btn-back:hover { background: var(--accent); }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🛠️ คู่มือการติดตั้งระบบใบลา</h1>
+  <p>APPLEPINE DIGITAL · Leave Management System · v1.0</p>
+</div>
+
+<div class="main">
+
+  <!-- TOC -->
+  <div class="toc">
+    <h2>📋 สารบัญ (3 ขั้นตอนหลัก)</h2>
+    <ol>
+      <li><a href="#step-sheets">สร้าง Google Sheets และ Deploy Apps Script</a></li>
+      <li><a href="#step-html">แก้ไข index.html ใส่ Apps Script URL</a></li>
+      <li><a href="#step-github">สร้าง GitHub Repo + เปิด GitHub Pages</a></li>
+    </ol>
+  </div>
+
+  <!-- ══ STEP 1: Google Sheets + Apps Script ══ -->
+  <div class="section" id="step-sheets">
+    <div class="section-header">
+      <div class="step-badge">1</div>
+      <div>
+        <h2>สร้าง Google Sheets และ Deploy Apps Script</h2>
+        <p style="font-size:13px;color:#388E3C;margin:0">ประมาณ 10-15 นาที</p>
+      </div>
+    </div>
+    <div class="section-body">
+      <ol class="steps">
+        <li>
+          <div class="num">1</div>
+          <div class="content">
+            <strong>สร้าง Google Spreadsheet ใหม่</strong>
+            <p>ไปที่ <code>sheets.new</code> หรือ Google Drive → New → Google Sheets<br/>
+            ตั้งชื่อไฟล์: <code>ระบบใบลา APPLEPINE DIGITAL</code></p>
+          </div>
+        </li>
+        <li>
+          <div class="num">2</div>
+          <div class="content">
+            <strong>เปิด Apps Script</strong>
+            <p>ใน Google Sheets → เมนู <code>Extensions</code> → <code>Apps Script</code><br/>
+            หน้าต่าง Apps Script จะเปิดขึ้นมา</p>
+          </div>
+        </li>
+        <li>
+          <div class="num">3</div>
+          <div class="content">
+            <strong>วางโค้ดจากไฟล์ Code.gs</strong>
+            <p>ลบโค้ดเดิมทั้งหมด แล้ว copy โค้ดจากไฟล์ <code>Code.gs</code> มาวางทั้งหมด<br/>
+            กด <code>Ctrl+S</code> หรือ <code>⌘+S</code> เพื่อบันทึก</p>
+          </div>
+        </li>
+        <li>
+          <div class="num">4</div>
+          <div class="content">
+            <strong>Deploy เป็น Web App</strong>
+            <p>กดปุ่ม <code>Deploy</code> (มุมขวาบน) → <code>New Deployment</code><br/>
+            ตั้งค่าดังนี้:</p>
+            <div class="code-block"><span class="comment"># ตั้งค่า Deployment:</span>
+<span class="key">Type          </span>: <span class="val">Web App</span>
+<span class="key">Description   </span>: <span class="val">Leave System v1.0</span>
+<span class="key">Execute as    </span>: <span class="val">Me (your email)</span>
+<span class="key">Who has access</span>: <span class="val">Anyone  ← สำคัญมาก!</span></div>
+            <p>กด <code>Deploy</code> → อนุญาต Permissions ที่ขอ → คัดลอก URL ที่ได้</p>
+          </div>
+        </li>
+        <li>
+          <div class="num">5</div>
+          <div class="content">
+            <strong>คัดลอก Web App URL</strong>
+            <p>URL จะมีหน้าตาแบบนี้:</p>
+            <div class="url-example">
+              https://script.google.com/macros/s/<strong>AKfycby...XXXXX</strong>/exec
+            </div>
+            <p style="margin-top:8px">📌 เก็บ URL นี้ไว้ใช้ในขั้นตอนถัดไป</p>
+          </div>
+        </li>
+      </ol>
+      <div class="tip">
+        💡 <span>ถ้า Deploy ครั้งแรกแล้วต้องแก้โค้ด ให้ Deploy ใหม่เป็น "New Deployment" ไม่ใช่ "Manage Deployments"</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ STEP 2: แก้ไข HTML ══ -->
+  <div class="section" id="step-html">
+    <div class="section-header">
+      <div class="step-badge">2</div>
+      <div>
+        <h2>แก้ไข index.html ใส่ Apps Script URL</h2>
+        <p style="font-size:13px;color:#388E3C;margin:0">ประมาณ 2 นาที</p>
+      </div>
+    </div>
+    <div class="section-body">
+      <ol class="steps">
+        <li>
+          <div class="num">1</div>
+          <div class="content">
+            <strong>เปิดไฟล์ index.html ด้วย text editor</strong>
+            <p>ใช้ VS Code, Notepad++, หรือ TextEdit ก็ได้</p>
+          </div>
+        </li>
+        <li>
+          <div class="num">2</div>
+          <div class="content">
+            <strong>หาบรรทัด APPS_SCRIPT_URL</strong>
+            <p>ค้นหาคำว่า <code>YOUR_APPS_SCRIPT_URL_HERE</code> และแทนที่ด้วย URL จากขั้นตอนที่ 1</p>
+            <div class="code-block"><span class="comment">// ก่อนแก้ไข:</span>
+APPS_SCRIPT_URL: <span class="val">'YOUR_APPS_SCRIPT_URL_HERE'</span>,
+
+<span class="comment">// หลังแก้ไข:</span>
+APPS_SCRIPT_URL: <span class="val">'https://script.google.com/macros/s/AKfycb.../exec'</span>,</div>
+          </div>
+        </li>
+        <li>
+          <div class="num">3</div>
+          <div class="content">
+            <strong>บันทึกไฟล์</strong>
+            <p>กด <code>Ctrl+S</code> บันทึก — แถบเตือนสีส้มบนหน้าเว็บจะหายไปเมื่อ URL ถูกต้อง</p>
+          </div>
+        </li>
+      </ol>
+      <div class="warn">
+        ⚠️ <span>อย่าแชร์ URL ของ Apps Script ต่อสาธารณะ เพราะใครก็ submit ข้อมูลเข้า Sheets ได้</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ STEP 3: GitHub ══ -->
+  <div class="section" id="step-github">
+    <div class="section-header">
+      <div class="step-badge">3</div>
+      <div>
+        <h2>สร้าง GitHub Repo + เปิด GitHub Pages</h2>
+        <p style="font-size:13px;color:#388E3C;margin:0">ประมาณ 5-10 นาที</p>
+      </div>
+    </div>
+    <div class="section-body">
+      <ol class="steps">
+        <li>
+          <div class="num">1</div>
+          <div class="content">
+            <strong>สร้าง Repository ใหม่บน GitHub</strong>
+            <p>ไปที่ <code>github.com/new</code> แล้วตั้งค่า:</p>
+            <div class="code-block"><span class="key">Repository name </span>: <span class="val">apd-leave-system</span>
+<span class="key">Visibility      </span>: <span class="val">Public</span>  ← จำเป็นสำหรับ GitHub Pages (free plan)
+<span class="key">Add README      </span>: <span class="val">✓ เลือกไว้ก็ได้</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="num">2</div>
+          <div class="content">
+            <strong>Upload ไฟล์ขึ้น Repository</strong>
+            <p>วิธีที่ง่ายที่สุด — ลาก &amp; วางในเบราว์เซอร์:</p>
+            <p>เปิด repo → กด <code>Add file</code> → <code>Upload files</code><br/>
+            ลากไฟล์ <code>index.html</code> และ <code>setup-guide.html</code> ขึ้นไป<br/>
+            เขียน commit message: <code>Add leave system v1.0</code><br/>
+            กด <code>Commit changes</code></p>
+          </div>
+        </li>
+        <li>
+          <div class="num">3</div>
+          <div class="content">
+            <strong>เปิดใช้งาน GitHub Pages</strong>
+            <p>ใน repo → <code>Settings</code> → เลื่อนลงหา <code>Pages</code> (sidebar ซ้าย)<br/>
+            ตั้งค่า Source:</p>
+            <div class="code-block"><span class="key">Source </span>: <span class="val">Deploy from a branch</span>
+<span class="key">Branch </span>: <span class="val">main</span>  →  <span class="val">/ (root)</span>
+กด Save</div>
+          </div>
+        </li>
+        <li>
+          <div class="num">4</div>
+          <div class="content">
+            <strong>รอ 1-3 นาที แล้วเปิด URL</strong>
+            <p>GitHub Pages URL จะเป็นแบบนี้:</p>
+            <div class="url-example">
+              https://<strong>username</strong>.github.io/<strong>apd-leave-system</strong>/
+            </div>
+            <p style="margin-top:8px">เปลี่ยน <code>username</code> เป็น GitHub username ของ Joe</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="success-box">
+        <h3>🎉 เสร็จสิ้น!</h3>
+        <p>ระบบใบลาพร้อมใช้งานแล้ว · ส่ง URL ให้ทีมได้เลย<br/>
+        ข้อมูลจะถูกเก็บใน Google Sheets โดยอัตโนมัติ</p>
+      </div>
+
+      <div class="tip" style="margin-top:16px">
+        💡 <span>ทุกครั้งที่แก้ไข <code>index.html</code> ให้ upload ไฟล์ใหม่ขึ้น GitHub อีกครั้ง GitHub Pages จะอัปเดตภายใน 1-2 นาที</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-header">
+      <div class="step-badge">📊</div>
+      <h2>ข้อมูลที่เก็บใน Google Sheets</h2>
+    </div>
+    <div class="section-body">
+      <p>ทุก submission จะสร้าง row ใหม่ใน Sheets พร้อม column ดังนี้:</p>
+      <div class="code-block" style="font-size:13px">เลขที่อ้างอิง | วันที่-เวลาส่ง | รหัสพนักงาน | ชื่อ-นามสกุล | แผนก | ตำแหน่ง
+อีเมล | เบอร์โทร | ประเภทการลา | วันที่เริ่มลา | วันที่กลับมา | จำนวนวัน
+เหตุผล | ผู้อนุมัติ | ผู้รับผิดชอบแทน | สถานะ | หมายเหตุ HR</div>
+      <p style="margin-top:12px">HR สามารถอัปเดตคอลัมน์ <strong>สถานะ</strong> เป็น <code>อนุมัติ</code> หรือ <code>ไม่อนุมัติ</code> ได้โดยตรงใน Sheets</p>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:8px">
+    <a href="index.html" class="btn-back">← กลับสู่หน้าใบลา</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2026 APPLEPINE DIGITAL · Leave System Setup Guide v1.0
+</div>
+
+</body>
+</html>
