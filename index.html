@@ -9,19 +9,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      /* ── APD Corporate Identity Colors ── */
-      --primary:       #273080;   /* APD Navy Blue      */
-      --primary-light: #3B45B3;   /* Mid Blue           */
-      --primary-pale:  #EAECF8;   /* Pale Navy Tint     */
-      --accent:        #FF9F13;   /* APD Amber Gold     */
-      --accent2:       #FFD07A;   /* Light Amber        */
-      --dark:          #081335;   /* APD Dark Navy      */
+      --primary:       #273080;
+      --primary-light: #3B45B3;
+      --primary-pale:  #EAECF8;
+      --accent:        #FF9F13;
+      --accent2:       #FFD07A;
+      --dark:          #081335;
       --text:          #081335;
       --text-muted:    #5A6076;
       --border:        #CDD1E8;
       --border-focus:  #273080;
       --surface:       #FFFFFF;
-      --bg:            #F1F6FF;   /* APD Ice Blue BG    */
+      --bg:            #F1F6FF;
       --error:         #C62828;
       --error-pale:    #FFEBEE;
       --success:       #273080;
@@ -29,454 +28,144 @@
       --shadow:        0 2px 16px rgba(8,19,53,0.10);
       --radius:        12px;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Sarabun', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-    body {
-      font-family: 'Sarabun', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
+    /* ── Header ── */
+    .header { background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 14px rgba(8,19,53,0.25); }
+    .header-inner { max-width: 860px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 14px; }
+    .header-logo { width: 40px; height: 40px; background: rgba(255,255,255,0.12); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .header-text h1 { font-size: 17px; font-weight: 700; color: #fff; line-height: 1.2; }
+    .header-text p { font-size: 11px; color: rgba(255,255,255,0.65); font-weight: 400; letter-spacing: 0.5px; }
+    .header-badge { margin-left: auto; background: var(--accent); color: var(--dark); padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; }
 
-    /* ─── Header ─── */
-    .header {
-      background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
-      padding: 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 14px rgba(8,19,53,0.25);
-    }
-    .header-inner {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .header-logo {
-      width: 40px;
-      height: 40px;
-      background: rgba(255,255,255,0.12);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      flex-shrink: 0;
-    }
-    .header-text h1 {
-      font-size: 17px;
-      font-weight: 700;
-      color: #fff;
-      line-height: 1.2;
-    }
-    .header-text p {
-      font-size: 11px;
-      color: rgba(255,255,255,0.65);
-      font-weight: 400;
-      letter-spacing: 0.5px;
-    }
-    .header-badge {
-      margin-left: auto;
-      background: var(--accent);
-      color: var(--dark);
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-    }
+    /* ── Main ── */
+    .main { max-width: 860px; margin: 0 auto; padding: 28px 16px 60px; }
 
-    /* ─── Main layout ─── */
-    .main {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 28px 16px 60px;
-    }
-
-    /* ─── Progress bar ─── */
+    /* ── Progress ── */
     .progress-wrapper { margin-bottom: 26px; }
     .progress-steps { display: flex; align-items: center; }
-    .step {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      flex: 1;
-      position: relative;
-    }
-    .step::after {
-      content: '';
-      position: absolute;
-      top: 16px;
-      left: 50%;
-      width: 100%;
-      height: 2px;
-      background: var(--border);
-      z-index: 0;
-    }
+    .step { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; position: relative; }
+    .step::after { content: ''; position: absolute; top: 16px; left: 50%; width: 100%; height: 2px; background: var(--border); z-index: 0; }
     .step:last-child::after { display: none; }
     .step.active::after, .step.done::after { background: var(--accent); }
-    .step-circle {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--border);
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: 700;
-      position: relative;
-      z-index: 1;
-      transition: all 0.3s;
-    }
-    .step.active .step-circle {
-      background: var(--primary);
-      color: #fff;
-      box-shadow: 0 0 0 4px rgba(39,48,128,0.20);
-    }
-    .step.done .step-circle {
-      background: var(--accent);
-      color: var(--dark);
-    }
-    .step-label {
-      font-size: 11px;
-      color: var(--text-muted);
-      font-weight: 500;
-      text-align: center;
-      white-space: nowrap;
-    }
+    .step-circle { width: 32px; height: 32px; border-radius: 50%; background: var(--border); color: var(--text-muted); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; position: relative; z-index: 1; transition: all 0.3s; }
+    .step.active .step-circle { background: var(--primary); color: #fff; box-shadow: 0 0 0 4px rgba(39,48,128,0.20); }
+    .step.done .step-circle { background: var(--accent); color: var(--dark); }
+    .step-label { font-size: 11px; color: var(--text-muted); font-weight: 500; text-align: center; white-space: nowrap; }
     .step.active .step-label { color: var(--primary); font-weight: 700; }
-    .step.done .step-label  { color: var(--accent); }
+    .step.done .step-label { color: var(--accent); }
 
-    /* ─── Cards ─── */
-    .card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      margin-bottom: 20px;
-      overflow: hidden;
-      border: 1px solid rgba(39,48,128,0.07);
-    }
-    .card-header {
-      background: var(--primary-pale);
-      padding: 14px 24px;
-      border-bottom: 2px solid rgba(39,48,128,0.12);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .card-header .icon {
-      width: 32px;
-      height: 32px;
-      background: var(--primary);
-      color: #fff;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      flex-shrink: 0;
-    }
-    .card-header h2 {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--primary);
-    }
+    /* ── Cards ── */
+    .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 20px; overflow: hidden; border: 1px solid rgba(39,48,128,0.07); }
+    .card-header { background: var(--primary-pale); padding: 14px 24px; border-bottom: 2px solid rgba(39,48,128,0.12); display: flex; align-items: center; gap: 10px; }
+    .card-header .icon { width: 32px; height: 32px; background: var(--primary); color: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+    .card-header h2 { font-size: 15px; font-weight: 700; color: var(--primary); }
     .card-body { padding: 22px 24px; }
 
-    /* ─── Form elements ─── */
+    /* ── Forms ── */
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
     .form-grid.col-3 { grid-template-columns: 1fr 1fr 1fr; }
     .form-grid.col-1 { grid-template-columns: 1fr; }
-    @media (max-width: 600px) {
-      .form-grid, .form-grid.col-3 { grid-template-columns: 1fr; }
-    }
-
+    @media (max-width: 600px) { .form-grid, .form-grid.col-3 { grid-template-columns: 1fr; } }
     .form-group { display: flex; flex-direction: column; gap: 6px; }
     .form-group.span-2 { grid-column: span 2; }
     @media (max-width: 600px) { .form-group.span-2 { grid-column: span 1; } }
-
     label { font-size: 13px; font-weight: 600; color: var(--text); }
-    label .req  { color: var(--error); margin-left: 3px; }
+    label .req { color: var(--error); margin-left: 3px; }
     label .hint { font-weight: 400; color: var(--text-muted); font-size: 12px; margin-left: 6px; }
-
-    input, select, textarea {
-      font-family: 'Sarabun', sans-serif;
-      font-size: 15px;
-      padding: 10px 14px;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      background: #F8FAFF;
-      color: var(--text);
-      width: 100%;
-      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-      outline: none;
-    }
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--border-focus);
-      background: #fff;
-      box-shadow: 0 0 0 3px rgba(39,48,128,0.12);
-    }
-    input.error, select.error, textarea.error {
-      border-color: var(--error);
-      background: var(--error-pale);
-    }
+    input, select, textarea { font-family: 'Sarabun', sans-serif; font-size: 15px; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; background: #F8FAFF; color: var(--text); width: 100%; transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+    input:focus, select:focus, textarea:focus { border-color: var(--border-focus); background: #fff; box-shadow: 0 0 0 3px rgba(39,48,128,0.12); }
+    input.error, select.error, textarea.error { border-color: var(--error); background: var(--error-pale); }
     .field-error { font-size: 12px; color: var(--error); display: none; }
     .field-error.show { display: block; }
-
     textarea { resize: vertical; min-height: 90px; }
     select { cursor: pointer; }
 
-    /* ─── Leave type grid ─── */
-    .leave-type-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
-      gap: 12px;
-    }
+    /* ── Leave Type Grid ── */
+    .leave-type-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
     .leave-type-card { position: relative; cursor: pointer; }
-    .leave-type-card input[type="radio"] {
-      position: absolute; opacity: 0; width: 0; height: 0;
-    }
-    .leave-type-card label {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 7px;
-      padding: 16px 12px;
-      border: 2px solid var(--border);
-      border-radius: 10px;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.2s;
-      font-weight: 500;
-      font-size: 14px;
-      color: var(--text);
-      background: #F8FAFF;
-      user-select: none;
-    }
+    .leave-type-card input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .leave-type-card label { display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 16px 12px; border: 2px solid var(--border); border-radius: 10px; cursor: pointer; text-align: center; transition: all 0.2s; font-weight: 500; font-size: 14px; color: var(--text); background: #F8FAFF; user-select: none; }
     .leave-type-card label .emoji { font-size: 26px; }
-    .leave-type-card label .days-info {
-      font-size: 11px;
-      color: var(--text-muted);
-      font-weight: 400;
-    }
-    .leave-type-card input:checked + label {
-      border-color: var(--primary);
-      background: var(--primary-pale);
-      color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(39,48,128,0.15);
-    }
-    .leave-type-card label:hover {
-      border-color: var(--primary-light);
-      background: var(--primary-pale);
-    }
+    .leave-type-card label .days-info { font-size: 11px; color: var(--text-muted); font-weight: 400; }
+    .leave-type-card input:checked + label { border-color: var(--primary); background: var(--primary-pale); color: var(--primary); box-shadow: 0 0 0 3px rgba(39,48,128,0.15); }
+    .leave-type-card label:hover { border-color: var(--primary-light); background: var(--primary-pale); }
+    .leave-type-card.unpaid input:checked + label { border-color: #78909C; background: #ECEFF1; color: #37474F; box-shadow: 0 0 0 3px rgba(120,144,156,0.15); }
 
-    /* ─── Days display ─── */
-    .days-display {
-      background: linear-gradient(135deg, #FFF8EC, #FFF3D6);
-      border: 2px solid var(--accent2);
-      border-radius: 10px;
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      height: 100%;
-      min-height: 50px;
-    }
-    .days-display .days-num {
-      font-size: 40px;
-      font-weight: 700;
-      color: var(--accent);
-      line-height: 1;
-      min-width: 54px;
-      text-align: center;
-      /* Use dark navy for the number so it's readable */
-      color: var(--dark);
-    }
-    .days-display .days-label {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
-    .days-display .days-label strong {
-      color: var(--dark);
-      font-size: 14px;
-      display: block;
-    }
+    /* ── Days display ── */
+    .days-display { background: linear-gradient(135deg, #FFF8EC, #FFF3D6); border: 2px solid var(--accent2); border-radius: 10px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; height: 100%; min-height: 50px; }
+    .days-display .days-num { font-size: 38px; font-weight: 700; color: var(--dark); line-height: 1; min-width: 54px; text-align: center; }
+    .days-display .days-label { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
+    .days-display .days-label strong { color: var(--dark); font-size: 14px; display: block; }
 
-    /* ─── Info note ─── */
-    .info-note {
-      background: #FFFBF0;
-      border: 1px solid var(--accent2);
-      border-radius: 8px;
-      padding: 12px 16px;
-      font-size: 13px;
-      color: #5A3E00;
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-    }
+    /* ── Half-day section ── */
+    .halfday-section { background: #F8FAFF; border: 1.5px solid var(--border); border-radius: 10px; padding: 14px 18px; }
+    .halfday-toggle { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px; font-weight: 600; color: var(--primary); }
+    .halfday-toggle input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer; }
+    .halfday-options { display: flex; gap: 14px; margin-top: 12px; }
+    .halfday-options label { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; cursor: pointer; padding: 8px 16px; border: 1.5px solid var(--border); border-radius: 8px; flex: 1; justify-content: center; background: #fff; transition: all .2s; }
+    .halfday-options input[type="radio"] { width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer; }
+    .halfday-options input[type="radio"]:checked + span { color: var(--primary); font-weight: 700; }
+    .halfday-options label:has(input:checked) { border-color: var(--primary); background: var(--primary-pale); }
+
+    /* ── Medical cert upload ── */
+    .medcert-section { background: #FFF3E0; border: 1.5px solid #FFCC80; border-radius: 10px; padding: 16px 18px; }
+    .medcert-section .medcert-title { font-size: 14px; font-weight: 700; color: #E65100; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .file-input-wrapper { position: relative; }
+    .file-input-wrapper input[type="file"] { padding: 8px 12px; font-size: 14px; cursor: pointer; border: 1.5px dashed #FFCC80; background: #fff; }
+    .file-input-wrapper input[type="file"]:focus { border-color: var(--accent); }
+    .file-preview { margin-top: 8px; font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+    .file-preview.ok { color: #2E7D32; }
+    .file-preview.error-size { color: var(--error); }
+
+    /* ── Info note ── */
+    .info-note { background: #FFFBF0; border: 1px solid var(--accent2); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #5A3E00; display: flex; gap: 8px; align-items: flex-start; }
     .info-note .note-icon { flex-shrink: 0; font-size: 16px; }
 
-    /* ─── Submit area ─── */
-    .submit-area {
-      display: flex;
-      gap: 12px;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-    }
-    .btn {
-      font-family: 'Sarabun', sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      padding: 11px 26px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn-primary {
-      background: var(--accent);
-      color: var(--dark);
-      box-shadow: 0 3px 10px rgba(255,159,19,0.35);
-      font-weight: 700;
-    }
-    .btn-primary:hover {
-      background: #e88e00;
-      transform: translateY(-1px);
-      box-shadow: 0 5px 16px rgba(255,159,19,0.40);
-    }
-    .btn-primary:active { transform: translateY(0); }
-    .btn-primary:disabled { background: #9E9E9E; box-shadow: none; cursor: not-allowed; transform: none; color:#fff; }
-    .btn-secondary {
-      background: #fff;
-      color: var(--text);
-      border: 1.5px solid var(--border);
-    }
+    /* ── Submit ── */
+    .submit-area { display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap; }
+    .btn { font-family: 'Sarabun', sans-serif; font-size: 15px; font-weight: 600; padding: 11px 26px; border-radius: 8px; border: none; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+    .btn-primary { background: var(--accent); color: var(--dark); box-shadow: 0 3px 10px rgba(255,159,19,0.35); font-weight: 700; }
+    .btn-primary:hover { background: #e88e00; transform: translateY(-1px); box-shadow: 0 5px 16px rgba(255,159,19,0.40); }
+    .btn-primary:disabled { background: #9E9E9E; box-shadow: none; cursor: not-allowed; transform: none; color: #fff; }
+    .btn-secondary { background: #fff; color: var(--text); border: 1.5px solid var(--border); }
     .btn-secondary:hover { background: var(--bg); }
-    .btn-outline {
-      background: transparent;
-      color: var(--primary);
-      border: 2px solid var(--primary);
-    }
+    .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
     .btn-outline:hover { background: var(--primary-pale); }
 
-    /* ─── Success / Error modal ─── */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(8,19,53,0.50);
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-    }
+    /* ── Modal ── */
+    .overlay { position: fixed; inset: 0; background: rgba(8,19,53,0.50); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
     .overlay.show { opacity: 1; pointer-events: all; }
-    .modal {
-      background: #fff;
-      border-radius: 16px;
-      padding: 36px 30px;
-      max-width: 420px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 20px 60px rgba(8,19,53,0.25);
-      transform: scale(0.92);
-      transition: transform 0.3s;
-    }
+    .modal { background: #fff; border-radius: 16px; padding: 36px 30px; max-width: 420px; width: 100%; text-align: center; box-shadow: 0 20px 60px rgba(8,19,53,0.25); transform: scale(0.92); transition: transform 0.3s; }
     .overlay.show .modal { transform: scale(1); }
     .modal .modal-icon { font-size: 56px; margin-bottom: 14px; }
     .modal h2 { font-size: 21px; font-weight: 700; margin-bottom: 10px; }
     .modal p { font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
-    .modal .ref-number {
-      background: var(--primary-pale);
-      border: 2px solid var(--primary);
-      border-radius: 8px;
-      padding: 10px 20px;
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--primary);
-      letter-spacing: 2px;
-      margin-bottom: 22px;
-      display: inline-block;
-    }
+    .modal .ref-number { background: var(--primary-pale); border: 2px solid var(--primary); border-radius: 8px; padding: 10px 20px; font-size: 17px; font-weight: 700; color: var(--primary); letter-spacing: 2px; margin-bottom: 22px; display: inline-block; }
 
-    /* ─── Loading spinner ─── */
-    .spinner {
-      width: 20px;
-      height: 20px;
-      border: 3px solid rgba(8,19,53,0.25);
-      border-top-color: var(--dark);
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      display: none;
-    }
+    /* ── Spinner ── */
+    .spinner { width: 20px; height: 20px; border: 3px solid rgba(8,19,53,0.25); border-top-color: var(--dark); border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
     .btn-primary.loading .spinner { display: inline-block; }
     .btn-primary.loading .btn-text { opacity: 0.7; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ─── Footer ─── */
-    .footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-    .footer a { color: var(--primary); text-decoration: none; }
-
-    /* ─── Print ─── */
-    @media print {
-      .header, .progress-wrapper, .submit-area, .footer { display: none; }
-      .card { box-shadow: none; border: 1px solid #ccc; }
-      body { background: #fff; }
-    }
-
-    /* ─── Responsive ─── */
-    @media (max-width: 480px) {
-      .card-body { padding: 16px; }
-      .leave-type-grid { grid-template-columns: repeat(2, 1fr); }
-      .days-display .days-num { font-size: 30px; }
-    }
-
-    /* ─── Config warning banner ─── */
-    .config-banner {
-      background: #FFF8E6;
-      border: 2px dashed var(--accent);
-      border-radius: 10px;
-      padding: 14px 18px;
-      margin-bottom: 20px;
-      font-size: 14px;
-      color: #7A4800;
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-    }
+    /* ── Config banner ── */
+    .config-banner { background: #FFF8E6; border: 2px dashed var(--accent); border-radius: 10px; padding: 14px 18px; margin-bottom: 20px; font-size: 14px; color: #7A4800; display: flex; gap: 10px; align-items: flex-start; }
     .config-banner.hidden { display: none; }
     .config-banner strong { display: block; font-size: 15px; margin-bottom: 4px; }
-    .config-banner code {
-      background: rgba(0,0,0,0.07);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-family: monospace;
-      font-size: 13px;
-    }
+    .config-banner code { background: rgba(0,0,0,0.07); padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px; }
+
+    /* ── Footer ── */
+    .footer { text-align: center; padding: 20px; font-size: 12px; color: var(--text-muted); }
+    .footer a { color: var(--primary); text-decoration: none; }
+
+    @media print { .header, .progress-wrapper, .submit-area, .footer { display: none; } .card { box-shadow: none; border: 1px solid #ccc; } body { background: #fff; } }
+    @media (max-width: 480px) { .card-body { padding: 16px; } .leave-type-grid { grid-template-columns: repeat(2, 1fr); } .halfday-options { flex-direction: column; } }
   </style>
 </head>
 <body>
 
-<!-- ════════════════════════════════════ HEADER ═══════════════════════════════════ -->
 <header class="header">
   <div class="header-inner">
     <div class="header-logo">🍃</div>
@@ -488,38 +177,24 @@
   </div>
 </header>
 
-<!-- ════════════════════════════════════ MAIN ════════════════════════════════════ -->
 <main class="main">
 
-  <!-- Config warning -->
   <div class="config-banner" id="configBanner">
     <span style="font-size:20px;flex-shrink:0">⚙️</span>
     <div>
-      <strong>ต้องกำหนดค่า Google Apps Script URL ก่อนใช้งาน</strong>
-      เปิดไฟล์ <code>index.html</code> แก้ไข <code>APPS_SCRIPT_URL</code> ในส่วน CONFIG
-      — ดูคู่มือที่ <a href="setup-guide.html" style="color:#7A4800;font-weight:700">setup-guide.html</a>
+      <strong>ต้องกำหนดค่า Apps Script URL ก่อนใช้งาน</strong>
+      เปิดไฟล์ <code>index.html</code> แก้ไข <code>APPS_SCRIPT_URL</code> ใน CONFIG —
+      ดูคู่มือที่ <a href="setup-guide.html" style="color:#7A4800;font-weight:700">setup-guide.html</a>
     </div>
   </div>
 
-  <!-- Progress Steps -->
+  <!-- Progress -->
   <div class="progress-wrapper">
     <div class="progress-steps">
-      <div class="step active" id="step1">
-        <div class="step-circle">1</div>
-        <div class="step-label">ข้อมูลพนักงาน</div>
-      </div>
-      <div class="step" id="step2">
-        <div class="step-circle">2</div>
-        <div class="step-label">ประเภทการลา</div>
-      </div>
-      <div class="step" id="step3">
-        <div class="step-circle">3</div>
-        <div class="step-label">รายละเอียด</div>
-      </div>
-      <div class="step" id="step4">
-        <div class="step-circle">4</div>
-        <div class="step-label">ยืนยัน</div>
-      </div>
+      <div class="step active" id="step1"><div class="step-circle">1</div><div class="step-label">ข้อมูลพนักงาน</div></div>
+      <div class="step" id="step2"><div class="step-circle">2</div><div class="step-label">ประเภทการลา</div></div>
+      <div class="step" id="step3"><div class="step-circle">3</div><div class="step-label">รายละเอียด</div></div>
+      <div class="step" id="step4"><div class="step-circle">4</div><div class="step-label">ยืนยัน</div></div>
     </div>
   </div>
 
@@ -527,10 +202,7 @@
 
     <!-- ── Section 1: Employee Info ── -->
     <div class="card">
-      <div class="card-header">
-        <div class="icon">👤</div>
-        <h2>ข้อมูลพนักงาน</h2>
-      </div>
+      <div class="card-header"><div class="icon">👤</div><h2>ข้อมูลพนักงาน</h2></div>
       <div class="card-body">
         <div class="form-grid">
           <div class="form-group">
@@ -577,56 +249,38 @@
 
     <!-- ── Section 2: Leave Type ── -->
     <div class="card">
-      <div class="card-header">
-        <div class="icon">📋</div>
-        <h2>ประเภทการลา</h2>
-      </div>
+      <div class="card-header"><div class="icon">📋</div><h2>ประเภทการลา</h2></div>
       <div class="card-body">
-        <div class="leave-type-grid" role="radiogroup" aria-label="ประเภทการลา">
+        <div class="leave-type-grid" role="radiogroup">
 
           <div class="leave-type-card">
             <input type="radio" name="leaveType" id="lt-sick" value="ลาป่วย" />
-            <label for="lt-sick">
-              <span class="emoji">🤒</span>
-              ลาป่วย
-              <span class="days-info">ได้ 30 วัน/ปี</span>
-            </label>
+            <label for="lt-sick"><span class="emoji">🤒</span>ลาป่วย<span class="days-info">ได้ 30 วัน/ปี</span></label>
           </div>
 
           <div class="leave-type-card">
             <input type="radio" name="leaveType" id="lt-annual" value="ลาพักร้อน" />
-            <label for="lt-annual">
-              <span class="emoji">🏖️</span>
-              ลาพักร้อน
-              <span class="days-info">ได้ 7 วัน/ปี</span>
-            </label>
+            <label for="lt-annual"><span class="emoji">🏖️</span>ลาพักร้อน<span class="days-info">ได้ 7 วัน/ปี</span></label>
           </div>
 
           <div class="leave-type-card">
             <input type="radio" name="leaveType" id="lt-personal" value="ลากิจ" />
-            <label for="lt-personal">
-              <span class="emoji">📝</span>
-              ลากิจ
-              <span class="days-info">ได้ 3 วัน/ปี</span>
-            </label>
+            <label for="lt-personal"><span class="emoji">📝</span>ลากิจ<span class="days-info">ได้ 3 วัน/ปี</span></label>
           </div>
 
           <div class="leave-type-card">
             <input type="radio" name="leaveType" id="lt-maternity" value="ลาคลอด/ลาบวช" />
-            <label for="lt-maternity">
-              <span class="emoji">🌸</span>
-              ลาคลอด / ลาบวช
-              <span class="days-info">ตามสิทธิ์กฎหมาย</span>
-            </label>
+            <label for="lt-maternity"><span class="emoji">🌸</span>ลาคลอด / ลาบวช<span class="days-info">ตามสิทธิ์กฎหมาย</span></label>
           </div>
 
           <div class="leave-type-card">
             <input type="radio" name="leaveType" id="lt-birthday" value="ลาวันเกิด" />
-            <label for="lt-birthday">
-              <span class="emoji">🎂</span>
-              ลาวันเกิด
-              <span class="days-info">ได้ 1 วัน/ปี</span>
-            </label>
+            <label for="lt-birthday"><span class="emoji">🎂</span>ลาวันเกิด<span class="days-info">ได้ 1 วัน/ปี</span></label>
+          </div>
+
+          <div class="leave-type-card unpaid">
+            <input type="radio" name="leaveType" id="lt-unpaid" value="ลาไม่รับค่าจ้าง" />
+            <label for="lt-unpaid"><span class="emoji">💸</span>ลาไม่รับค่าจ้าง</label>
           </div>
 
         </div>
@@ -636,13 +290,11 @@
 
     <!-- ── Section 3: Dates & Detail ── -->
     <div class="card">
-      <div class="card-header">
-        <div class="icon">📅</div>
-        <h2>รายละเอียดการลา</h2>
-      </div>
+      <div class="card-header"><div class="icon">📅</div><h2>รายละเอียดการลา</h2></div>
       <div class="card-body">
         <div style="display:flex;flex-direction:column;gap:18px;">
 
+          <!-- วันที่ -->
           <div class="form-grid col-3">
             <div class="form-group">
               <label for="startDate">วันที่เริ่มลา <span class="req">*</span></label>
@@ -666,19 +318,52 @@
             </div>
           </div>
 
+          <!-- ลาครึ่งวัน -->
+          <div class="halfday-section">
+            <label class="halfday-toggle">
+              <input type="checkbox" id="halfDayCheck" onchange="onHalfDayChange()" />
+              🕐 ลาครึ่งวัน (0.5 วันทำการ)
+            </label>
+            <div class="halfday-options" id="halfDayOptions" style="display:none">
+              <label>
+                <input type="radio" name="halfDayTime" value="ครึ่งวันเช้า" checked />
+                <span>☀️ ครึ่งวันเช้า</span>
+              </label>
+              <label>
+                <input type="radio" name="halfDayTime" value="ครึ่งวันบ่าย" />
+                <span>🌤 ครึ่งวันบ่าย</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- แนบเอกสาร (แสดงเมื่อลาป่วย หรือ ลากิจ) -->
+          <div class="medcert-section" id="medCertSection" style="display:none">
+            <div class="medcert-title" id="medCertTitle">📎 แนบเอกสารประกอบ (ไม่บังคับ)</div>
+            <div class="form-group">
+              <label for="medCertFile" id="medCertLabel">ไฟล์เอกสาร
+                <span class="hint">PDF, JPG, PNG (ไม่เกิน 5 MB)</span>
+              </label>
+              <div class="file-input-wrapper">
+                <input type="file" id="medCertFile" accept=".pdf,.jpg,.jpeg,.png" onchange="onMedCertSelect(this)" />
+              </div>
+              <div class="file-preview" id="filePreview"></div>
+              <span class="field-error" id="medCert-err">กรุณาแนบใบรับรองแพทย์</span>
+            </div>
+          </div>
+
+          <!-- เหตุผล -->
           <div class="form-grid col-1">
             <div class="form-group">
-              <label for="reason">เหตุผลการลา <span class="req">*</span>
-                <span class="hint">(อธิบายโดยย่อ)</span>
-              </label>
+              <label for="reason">เหตุผลการลา <span class="req">*</span><span class="hint">(อธิบายโดยย่อ)</span></label>
               <textarea id="reason" rows="3" placeholder="กรุณาระบุเหตุผลในการลา..."></textarea>
               <span class="field-error" id="reason-err">กรุณาระบุเหตุผล</span>
             </div>
           </div>
 
+          <!-- ผู้อนุมัติ -->
           <div class="form-grid">
             <div class="form-group">
-              <label for="approver">ผู้อนุมัติ (ผู้บังคับบัญชา) <span class="req">*</span></label>
+              <label for="approver">ผู้อนุมัติ <span class="req">*</span></label>
               <input type="text" id="approver" placeholder="ชื่อผู้บังคับบัญชา" />
               <span class="field-error" id="approver-err">กรุณาระบุชื่อผู้อนุมัติ</span>
             </div>
@@ -692,7 +377,7 @@
             <span class="note-icon">💡</span>
             <div>
               <strong style="font-size:13px;display:block;margin-bottom:3px">หมายเหตุ</strong>
-              ลาป่วยเกิน 3 วันต้องแนบใบรับรองแพทย์ · ลาพักร้อนแจ้งล่วงหน้าอย่างน้อย 7 วัน ·
+              ลาป่วยและลากิจสามารถแนบเอกสารประกอบได้ (ไม่บังคับ) · ลาพักร้อนแจ้งล่วงหน้าอย่างน้อย 7 วัน ·
               ผู้อนุมัติจะได้รับอีเมลแจ้งเตือนอัตโนมัติ
             </div>
           </div>
@@ -701,18 +386,14 @@
       </div>
     </div>
 
-    <!-- ── Section 4: Confirm & Submit ── -->
+    <!-- ── Section 4: Confirm ── -->
     <div class="card">
-      <div class="card-header">
-        <div class="icon">✅</div>
-        <h2>ยืนยันและส่งใบลา</h2>
-      </div>
+      <div class="card-header"><div class="icon">✅</div><h2>ยืนยันและส่งใบลา</h2></div>
       <div class="card-body">
         <div id="summaryBox" style="background:var(--bg);border-radius:10px;padding:16px 18px;margin-bottom:18px;font-size:14px;line-height:2;display:none;border:1px solid var(--border);">
           <strong style="font-size:15px;color:var(--primary);display:block;margin-bottom:6px">📄 สรุปใบลา</strong>
           <div id="summaryContent"></div>
         </div>
-
         <div class="submit-area">
           <button type="button" class="btn btn-secondary" onclick="window.print()">🖨️ พิมพ์</button>
           <button type="button" class="btn btn-outline" onclick="resetForm()">🔄 ล้างข้อมูล</button>
@@ -727,19 +408,16 @@
   </form>
 </main>
 
-<!-- ════════════════════════════════════ FOOTER ══════════════════════════════════ -->
 <footer class="footer">
-  <p>© 2026 APPLEPINE DIGITAL · ระบบใบลาพนักงาน v1.1 ·
-    <a href="setup-guide.html">คู่มือการติดตั้ง</a>
-  </p>
+  <p>© 2026 APPLEPINE DIGITAL · ระบบใบลาพนักงาน v2.0 · <a href="setup-guide.html">คู่มือการติดตั้ง</a></p>
 </footer>
 
-<!-- ════════════════════════════════════ SUCCESS MODAL ═══════════════════════════ -->
+<!-- Success Modal -->
 <div class="overlay" id="successOverlay">
   <div class="modal">
     <div class="modal-icon">🎉</div>
     <h2 style="color:var(--primary)">ส่งใบลาสำเร็จ!</h2>
-    <p>ระบบได้รับใบลาของคุณเรียบร้อยแล้ว<br>กรุณาติดตามสถานะผ่านทีม HR</p>
+    <p>ระบบได้รับใบลาของคุณเรียบร้อยแล้ว<br>ผู้อนุมัติจะได้รับอีเมลแจ้งเตือนทันที</p>
     <div class="ref-number" id="refNumber">APD-000000</div>
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
       <button class="btn btn-primary" onclick="closeModal('successOverlay');resetForm()">✅ ปิดและกรอกใหม่</button>
@@ -748,259 +426,330 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════════ ERROR MODAL ════════════════════════════ -->
+<!-- Error Modal -->
 <div class="overlay" id="errorOverlay">
   <div class="modal">
     <div class="modal-icon">❌</div>
     <h2 style="color:var(--error)">เกิดข้อผิดพลาด</h2>
-    <p id="errorMsg">ไม่สามารถส่งใบลาได้ในขณะนี้<br>กรุณาลองใหม่อีกครั้ง หรือติดต่อ HR โดยตรง</p>
+    <p id="errorMsg">ไม่สามารถส่งใบลาได้ กรุณาลองใหม่</p>
     <button class="btn btn-primary" onclick="closeModal('errorOverlay')" style="background:var(--error);color:#fff;box-shadow:none">ปิด</button>
   </div>
 </div>
 
-<!-- ════════════════════════════════════ SCRIPT ══════════════════════════════════ -->
 <script>
-  // ╔══════════════════════════════════════════════════════════╗
-  // ║               🔧 CONFIG — แก้ไขที่นี่                    ║
-  // ╚══════════════════════════════════════════════════════════╝
-  const CONFIG = {
-    APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxHfDt-SVM2gA8YdVJVYmi8VtLO1xvatbk4O7Hfwef2-X-GcKGrVSoSWQOFapeEC2HO/exec',
-    ORG_PREFIX: 'APD',
-  };
-  // ═══════════════════════════════════════════════════════════
+// ╔══════════════════════════════════════╗
+// ║  CONFIG — แก้ไข URL ที่นี่          ║
+// ╚══════════════════════════════════════╝
+const CONFIG = {
+  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxHfDt-SVM2gA8YdVJVYmi8VtLO1xvatbk4O7Hfwef2-X-GcKGrVSoSWQOFapeEC2HO/exec',
+  ORG_PREFIX: 'APD',
+};
 
-  // Check config
-  if (CONFIG.APPS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL_HERE') {
-    document.getElementById('configBanner').classList.add('hidden');
+if (CONFIG.APPS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL_HERE') {
+  document.getElementById('configBanner').classList.add('hidden');
+}
+
+// ── Date setup ──
+const now = new Date();
+const pad = n => String(n).padStart(2, '0');
+const todayStr = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+const startEl = document.getElementById('startDate');
+const endEl   = document.getElementById('endDate');
+startEl.min = endEl.min = todayStr;
+startEl.value = endEl.value = todayStr;
+
+// ── Working days calculator (timezone-safe) ──
+function calcWorkingDays(start, end) {
+  if (!start || !end) return 0;
+  const [sy, sm, sd] = start.split('-').map(Number);
+  const [ey, em, ed] = end.split('-').map(Number);
+  const s = new Date(sy, sm - 1, sd);
+  const e = new Date(ey, em - 1, ed);
+  if (e < s) return 0;
+  let count = 0;
+  const cur = new Date(s);
+  while (cur <= e) { if (cur.getDay() !== 0 && cur.getDay() !== 6) count++; cur.setDate(cur.getDate() + 1); }
+  return count;
+}
+
+// ── Effective working days (accounts for half-day) ──
+function getEffectiveWorkingDays() {
+  if (document.getElementById('halfDayCheck').checked) return 0.5;
+  return calcWorkingDays(startEl.value, endEl.value);
+}
+
+// ── Half-day toggle ──
+function onHalfDayChange() {
+  const checked = document.getElementById('halfDayCheck').checked;
+  document.getElementById('halfDayOptions').style.display = checked ? 'flex' : 'none';
+  if (checked) {
+    endEl.value = startEl.value;
+    endEl.disabled = true;
+    endEl.style.background = '#F0F0F0';
+  } else {
+    endEl.disabled = false;
+    endEl.style.background = '';
   }
+  updateDaysDisplay();
+  updateSummary();
+  updateMedCertVisibility();
+  updateProgressSteps();
+}
 
-  // ── Date defaults (local timezone safe) ──
-  const now = new Date();
-  const pad = n => String(n).padStart(2, '0');
-  const todayStr = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+// ── Days display ──
+function updateDaysDisplay() {
+  const days = getEffectiveWorkingDays();
+  const halfDay = document.getElementById('halfDayCheck').checked;
+  document.getElementById('daysCount').textContent = days > 0 ? (halfDay ? '½' : days) : '—';
+  document.getElementById('daysText').textContent  = days > 0 ? (halfDay ? 'ครึ่งวัน' : `${days} วัน`) : 'เลือกวันก่อน';
+}
 
-  const startEl = document.getElementById('startDate');
-  const endEl   = document.getElementById('endDate');
-  startEl.min   = todayStr;
-  endEl.min     = todayStr;
-  startEl.value = todayStr;
-  endEl.value   = todayStr;
-
-  // ── Calculate working days (timezone-safe) ──
-  function calcWorkingDays(start, end) {
-    if (!start || !end) return 0;
-    const [sy, sm, sd] = start.split('-').map(Number);
-    const [ey, em, ed] = end.split('-').map(Number);
-    const s = new Date(sy, sm - 1, sd);
-    const e = new Date(ey, em - 1, ed);
-    if (e < s) return 0;
-    let count = 0;
-    const cur = new Date(s);
-    while (cur <= e) {
-      const d = cur.getDay();
-      if (d !== 0 && d !== 6) count++;
-      cur.setDate(cur.getDate() + 1);
-    }
-    return count;
-  }
-
-  // ── Update days display ──
-  function updateDaysDisplay() {
-    const s    = startEl.value;
-    const e    = endEl.value;
-    const days = calcWorkingDays(s, e);
-    document.getElementById('daysCount').textContent = days > 0 ? days : '—';
-    document.getElementById('daysText').textContent  = days > 0 ? `${days} วัน` : 'เลือกวันก่อน';
-  }
-
-  // ── Date listeners — both 'input' and 'change' for all browsers ──
-  function onStartChange() {
+function onStartChange() {
+  if (!document.getElementById('halfDayCheck').checked) {
     if (endEl.value < startEl.value) endEl.value = startEl.value;
     endEl.min = startEl.value;
-    updateDaysDisplay();
-    updateSummary();
-    updateProgressSteps();
+  } else {
+    endEl.value = startEl.value;
   }
-  function onEndChange() {
-    updateDaysDisplay();
-    updateSummary();
-    updateProgressSteps();
-  }
-  startEl.addEventListener('change', onStartChange);
-  startEl.addEventListener('input',  onStartChange);
-  endEl.addEventListener('change',   onEndChange);
-  endEl.addEventListener('input',    onEndChange);
+  updateDaysDisplay(); updateSummary(); updateMedCertVisibility(); updateProgressSteps();
+}
+function onEndChange() {
+  updateDaysDisplay(); updateSummary(); updateMedCertVisibility(); updateProgressSteps();
+}
+startEl.addEventListener('change', onStartChange); startEl.addEventListener('input', onStartChange);
+endEl.addEventListener('change', onEndChange);     endEl.addEventListener('input',  onEndChange);
 
-  // ── Leave type ──
-  document.querySelectorAll('input[name="leaveType"]').forEach(r => {
-    r.addEventListener('change', () => { updateSummary(); updateProgressSteps(); });
-  });
+// ── Leave type change ──
+document.querySelectorAll('input[name="leaveType"]').forEach(r => {
+  r.addEventListener('change', () => { updateSummary(); updateMedCertVisibility(); updateProgressSteps(); });
+});
+function getLeaveType() {
+  const sel = document.querySelector('input[name="leaveType"]:checked');
+  return sel ? sel.value : '';
+}
+function getHalfDay() {
+  if (!document.getElementById('halfDayCheck').checked) return '';
+  const sel = document.querySelector('input[name="halfDayTime"]:checked');
+  return sel ? sel.value : 'ครึ่งวันเช้า';
+}
 
-  function getLeaveType() {
-    const sel = document.querySelector('input[name="leaveType"]:checked');
-    return sel ? sel.value : '';
-  }
+// ── Medical cert / document upload visibility ──
+function updateMedCertVisibility() {
+  const leaveType = getLeaveType();
+  const show = leaveType === 'ลาป่วย' || leaveType === 'ลากิจ';
+  document.getElementById('medCertSection').style.display = show ? 'block' : 'none';
 
-  // ── Summary ──
-  function updateSummary() {
-    const name = document.getElementById('empName').value;
-    const id   = document.getElementById('empId').value;
-    const dept = document.getElementById('department').value;
-    const type = getLeaveType();
-    const s    = startEl.value;
-    const e    = endEl.value;
-    const days = calcWorkingDays(s, e);
-    if (!name && !type) return;
-    document.getElementById('summaryBox').style.display = 'block';
-    const fmt = d => d
-      ? new Date(d + 'T12:00:00').toLocaleDateString('th-TH', { year:'numeric', month:'long', day:'numeric' })
-      : '-';
-    document.getElementById('summaryContent').innerHTML =
-      `👤 <strong>${name||'-'}</strong> (${id||'-'}) — ${dept||'-'}<br>` +
-      `📋 ประเภทการลา: <strong>${type||'-'}</strong><br>` +
-      `📅 ${fmt(s)} ถึง ${fmt(e)}<br>` +
-      `⏱ <strong style="color:var(--primary);font-size:16px">${days} วันทำการ</strong>`;
-  }
-
-  // ── Progress steps ──
-  function updateProgressSteps() {
-    const name  = document.getElementById('empName').value.trim();
-    const id    = document.getElementById('empId').value.trim();
-    const dept  = document.getElementById('department').value;
-    const pos   = document.getElementById('position').value.trim();
-    const type  = getLeaveType();
-    const days  = calcWorkingDays(startEl.value, endEl.value);
-    const s1Done = !!(name && id && dept && pos);
-    const s2Done = !!type;
-    const s3Done = !!(startEl.value && endEl.value && days > 0);
-    setStep(1, s1Done ? 'done' : 'active');
-    setStep(2, s2Done ? 'done' : (s1Done ? 'active' : ''));
-    setStep(3, s3Done ? 'done' : (s2Done ? 'active' : ''));
-    setStep(4, (s1Done && s2Done && s3Done) ? 'active' : '');
-  }
-  function setStep(n, state) {
-    const el = document.getElementById('step' + n);
-    el.classList.remove('active', 'done');
-    if (state) el.classList.add(state);
-    el.querySelector('.step-circle').textContent = state === 'done' ? '✓' : n;
-  }
-  document.querySelectorAll('input, select, textarea').forEach(el => {
-    el.addEventListener('input',  updateProgressSteps);
-    el.addEventListener('change', updateProgressSteps);
-  });
-
-  // ── Validation ──
-  function validateField(id, ok) {
-    const el  = document.getElementById(id);
-    const err = document.getElementById(id + '-err');
-    el.classList.toggle('error', !ok);
-    if (err) err.classList.toggle('show', !ok);
-    return ok;
-  }
-  function validateForm() {
-    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    let ok = true;
-    ok = validateField('empName',    document.getElementById('empName').value.trim().length > 1) && ok;
-    ok = validateField('empId',      document.getElementById('empId').value.trim().length > 0)   && ok;
-    ok = validateField('department', !!document.getElementById('department').value)              && ok;
-    ok = validateField('position',   document.getElementById('position').value.trim().length > 0)&& ok;
-    ok = validateField('email',      emailRe.test(document.getElementById('email').value.trim()))&& ok;
-    ok = validateField('phone',      document.getElementById('phone').value.trim().length >= 9)  && ok;
-    ok = validateField('startDate',  !!startEl.value)                                            && ok;
-    ok = validateField('endDate',    !!endEl.value)                                              && ok;
-    ok = validateField('reason',     document.getElementById('reason').value.trim().length > 5)  && ok;
-    ok = validateField('approver',   document.getElementById('approver').value.trim().length > 1)&& ok;
-    // Leave type
-    const ltOk = !!getLeaveType();
-    document.getElementById('leaveType-err').classList.toggle('show', !ltOk);
-    ok = ltOk && ok;
-    // End date not before start
-    if (endEl.value && startEl.value && endEl.value < startEl.value) {
-      validateField('endDate', false);
-      document.getElementById('endDate-err').textContent = 'วันสุดท้ายต้องไม่ก่อนวันเริ่มลา';
-      ok = false;
+  if (show) {
+    if (leaveType === 'ลาป่วย') {
+      document.getElementById('medCertTitle').textContent  = '⚕️ แนบใบรับรองแพทย์ (ถ้ามี)';
+      document.getElementById('medCertLabel').childNodes[0].textContent = 'ใบรับรองแพทย์ ';
+    } else {
+      document.getElementById('medCertTitle').textContent  = '📎 แนบเอกสารประกอบการลากิจ (ถ้ามี)';
+      document.getElementById('medCertLabel').childNodes[0].textContent = 'เอกสารประกอบ ';
     }
-    return ok;
+  } else {
+    document.getElementById('medCertFile').value = '';
+    document.getElementById('filePreview').textContent = '';
+    medCertData = null;
+  }
+}
+
+// ── Medical cert file reader ──
+let medCertData = null; // { base64: string, fileName: string }
+function onMedCertSelect(input) {
+  const file = input.files[0];
+  const preview = document.getElementById('filePreview');
+  if (!file) { medCertData = null; preview.textContent = ''; return; }
+
+  const MAX = 5 * 1024 * 1024; // 5MB
+  if (file.size > MAX) {
+    preview.className = 'file-preview error-size';
+    preview.textContent = '⚠️ ไฟล์ใหญ่เกิน 5 MB กรุณาบีบอัดก่อนอัปโหลด';
+    medCertData = null;
+    return;
   }
 
-  // ── Reference number ──
-  function genRef() {
-    const d  = new Date();
-    const yy = String(d.getFullYear()).slice(-2);
-    const mm = pad(d.getMonth() + 1);
-    const dd = pad(d.getDate());
-    return `${CONFIG.ORG_PREFIX}-${yy}${mm}${dd}-${String(Math.floor(Math.random()*9000)+1000)}`;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    medCertData = { base64: e.target.result, fileName: file.name };
+    preview.className = 'file-preview ok';
+    preview.innerHTML = `✅ ${file.name} (${(file.size/1024).toFixed(0)} KB)`;
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── Summary ──
+function updateSummary() {
+  const name = document.getElementById('empName').value;
+  const id   = document.getElementById('empId').value;
+  const dept = document.getElementById('department').value;
+  const type = getLeaveType();
+  const s    = startEl.value;
+  const e    = endEl.value;
+  const days = getEffectiveWorkingDays();
+  const half = getHalfDay();
+  if (!name && !type) return;
+  document.getElementById('summaryBox').style.display = 'block';
+  const fmt = d => d ? new Date(d + 'T12:00:00').toLocaleDateString('th-TH', { year:'numeric', month:'long', day:'numeric' }) : '-';
+  document.getElementById('summaryContent').innerHTML =
+    `👤 <strong>${name||'-'}</strong> (${id||'-'}) — ${dept||'-'}<br>` +
+    `📋 ประเภทการลา: <strong>${type||'-'}</strong>${half ? ' · ' + half : ''}<br>` +
+    `📅 ${fmt(s)} ถึง ${fmt(e)}<br>` +
+    `⏱ <strong style="color:var(--primary);font-size:16px">${days} วันทำการ</strong>`;
+}
+
+// ── Progress steps ──
+function updateProgressSteps() {
+  const s1Done = !!(document.getElementById('empName').value.trim().length > 1 &&
+    document.getElementById('empId').value.trim() &&
+    document.getElementById('department').value &&
+    document.getElementById('position').value.trim());
+  const s2Done = !!getLeaveType();
+  const days   = getEffectiveWorkingDays();
+  const s3Done = !!(startEl.value && endEl.value && days > 0);
+  setStep(1, s1Done ? 'done' : 'active');
+  setStep(2, s2Done ? 'done' : (s1Done ? 'active' : ''));
+  setStep(3, s3Done ? 'done' : (s2Done ? 'active' : ''));
+  setStep(4, (s1Done && s2Done && s3Done) ? 'active' : '');
+}
+function setStep(n, state) {
+  const el = document.getElementById('step' + n);
+  el.classList.remove('active', 'done');
+  if (state) el.classList.add(state);
+  el.querySelector('.step-circle').textContent = state === 'done' ? '✓' : n;
+}
+document.querySelectorAll('input:not([type=radio]):not([type=checkbox]):not([type=file]), select, textarea').forEach(el => {
+  el.addEventListener('input', updateProgressSteps);
+  el.addEventListener('change', updateProgressSteps);
+});
+
+// ── Validation ──
+function validateField(id, ok) {
+  const el  = document.getElementById(id);
+  const err = document.getElementById(id + '-err');
+  if (el) el.classList.toggle('error', !ok);
+  if (err) err.classList.toggle('show', !ok);
+  return ok;
+}
+function validateForm() {
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  let ok = true;
+  ok = validateField('empName',   document.getElementById('empName').value.trim().length > 1)  && ok;
+  ok = validateField('empId',     document.getElementById('empId').value.trim().length > 0)    && ok;
+  ok = validateField('department',!!document.getElementById('department').value)                && ok;
+  ok = validateField('position',  document.getElementById('position').value.trim().length > 0) && ok;
+  ok = validateField('email',     emailRe.test(document.getElementById('email').value.trim()))  && ok;
+  ok = validateField('phone',     document.getElementById('phone').value.trim().length >= 9)    && ok;
+  ok = validateField('startDate', !!startEl.value)                                              && ok;
+  ok = validateField('endDate',   !!endEl.value)                                                && ok;
+  ok = validateField('reason',    document.getElementById('reason').value.trim().length > 5)    && ok;
+  ok = validateField('approver',  document.getElementById('approver').value.trim().length > 1)  && ok;
+
+  const ltOk = !!getLeaveType();
+  document.getElementById('leaveType-err').classList.toggle('show', !ltOk);
+  ok = ltOk && ok;
+
+  if (endEl.value && startEl.value && endEl.value < startEl.value) {
+    validateField('endDate', false);
+    document.getElementById('endDate-err').textContent = 'วันสุดท้ายต้องไม่ก่อนวันเริ่มลา';
+    ok = false;
   }
 
-  // ── Submit ──
-  document.getElementById('leaveForm').addEventListener('submit', async function(ev) {
-    ev.preventDefault();
-    if (!validateForm()) {
-      document.querySelector('.error')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
-    }
-    if (CONFIG.APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
-      showError('กรุณากำหนดค่า Apps Script URL ใน CONFIG ก่อน<br><a href="setup-guide.html">ดูคู่มือ</a>');
-      return;
-    }
-    const btn = document.getElementById('submitBtn');
-    btn.classList.add('loading'); btn.disabled = true;
-    const refNum = genRef();
-    const s = startEl.value, e = endEl.value;
-    const payload = {
-      refNumber:   refNum,
-      timestamp:   new Date().toISOString(),
-      empName:     document.getElementById('empName').value.trim(),
-      empId:       document.getElementById('empId').value.trim(),
-      department:  document.getElementById('department').value,
-      position:    document.getElementById('position').value.trim(),
-      email:       document.getElementById('email').value.trim(),
-      phone:       document.getElementById('phone').value.trim(),
-      leaveType:   getLeaveType(),
-      startDate:   s, endDate: e,
-      workingDays: calcWorkingDays(s, e),
-      reason:      document.getElementById('reason').value.trim(),
-      approver:    document.getElementById('approver').value.trim(),
-      coverBy:     document.getElementById('coverBy').value.trim(),
-      status:      'รอการอนุมัติ',
-    };
-    try {
-      await fetch(CONFIG.APPS_SCRIPT_URL, {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      document.getElementById('refNumber').textContent = refNum;
-      showModal('successOverlay');
-    } catch (err) {
-      console.error(err);
-      showError('ไม่สามารถเชื่อมต่อได้ กรุณาตรวจสอบอินเทอร์เน็ตและลองใหม่');
-    } finally {
-      btn.classList.remove('loading'); btn.disabled = false;
-    }
-  });
+  // Medical cert: optional — no blocking validation
+  return ok;
+}
 
-  function showModal(id)  { document.getElementById(id).classList.add('show'); }
-  function closeModal(id) { document.getElementById(id).classList.remove('show'); }
-  function showError(msg) {
-    document.getElementById('errorMsg').innerHTML = msg;
-    showModal('errorOverlay');
+// ── Reference number ──
+function genRef() {
+  const d = new Date();
+  const yy = String(d.getFullYear()).slice(-2);
+  return `${CONFIG.ORG_PREFIX}-${yy}${pad(d.getMonth()+1)}${pad(d.getDate())}-${String(Math.floor(Math.random()*9000)+1000)}`;
+}
+
+// ── Submit ──
+document.getElementById('leaveForm').addEventListener('submit', async function(ev) {
+  ev.preventDefault();
+  if (!validateForm()) {
+    document.querySelector('.error')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
   }
-  function resetForm() {
-    document.getElementById('leaveForm').reset();
-    document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
-    document.querySelectorAll('.field-error').forEach(el => el.classList.remove('show'));
-    startEl.value = todayStr; endEl.value = todayStr;
-    document.getElementById('daysCount').textContent = '—';
-    document.getElementById('daysText').textContent  = 'เลือกวันก่อน';
-    document.getElementById('summaryBox').style.display = 'none';
-    updateProgressSteps();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (CONFIG.APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+    showError('กรุณากำหนดค่า Apps Script URL ใน CONFIG ก่อน'); return;
   }
 
-  // Init
-  updateDaysDisplay();
+  const btn = document.getElementById('submitBtn');
+  btn.classList.add('loading'); btn.disabled = true;
+
+  const refNum = genRef();
+  const s = startEl.value, e = endEl.value;
+  const days = getEffectiveWorkingDays();
+  const halfDay = getHalfDay();
+
+  const payload = {
+    refNumber:    refNum,
+    timestamp:    new Date().toISOString(),
+    empName:      document.getElementById('empName').value.trim(),
+    empId:        document.getElementById('empId').value.trim(),
+    department:   document.getElementById('department').value,
+    position:     document.getElementById('position').value.trim(),
+    email:        document.getElementById('email').value.trim(),
+    phone:        document.getElementById('phone').value.trim(),
+    leaveType:    getLeaveType(),
+    startDate:    s, endDate: e,
+    workingDays:  days,
+    reason:       document.getElementById('reason').value.trim(),
+    approver:     document.getElementById('approver').value.trim(),
+    coverBy:      document.getElementById('coverBy').value.trim(),
+    halfDay:      halfDay,
+    status: 'รอการอนุมัติ',
+  };
+
+  // Attach med cert if available
+  if (medCertData) {
+    payload.medCertBase64  = medCertData.base64;
+    payload.medCertFileName = medCertData.fileName;
+  }
+
+  try {
+    await fetch(CONFIG.APPS_SCRIPT_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    document.getElementById('refNumber').textContent = refNum;
+    showModal('successOverlay');
+  } catch (err) {
+    console.error(err);
+    showError('ไม่สามารถเชื่อมต่อได้ กรุณาตรวจสอบอินเทอร์เน็ตและลองใหม่');
+  } finally {
+    btn.classList.remove('loading'); btn.disabled = false;
+  }
+});
+
+function showModal(id)  { document.getElementById(id).classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+function showError(msg) { document.getElementById('errorMsg').innerHTML = msg; showModal('errorOverlay'); }
+
+function resetForm() {
+  document.getElementById('leaveForm').reset();
+  document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+  document.querySelectorAll('.field-error').forEach(el => el.classList.remove('show'));
+  startEl.value = endEl.value = todayStr;
+  endEl.disabled = false; endEl.style.background = '';
+  document.getElementById('daysCount').textContent = '—';
+  document.getElementById('daysText').textContent  = 'เลือกวันก่อน';
+  document.getElementById('summaryBox').style.display = 'none';
+  document.getElementById('halfDayOptions').style.display = 'none';
+  document.getElementById('medCertSection').style.display = 'none';
+  document.getElementById('filePreview').textContent = '';
+  medCertData = null;
   updateProgressSteps();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Init
+updateDaysDisplay();
+updateProgressSteps();
 </script>
 </body>
 </html>
