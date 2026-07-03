@@ -119,6 +119,20 @@
     .file-preview.ok { color: #2E7D32; }
     .file-preview.error-size { color: var(--error); }
 
+    /* ── Balance box ── */
+    .balance-box { margin-top: 18px; border-radius: 10px; padding: 16px 18px; border: 1.5px solid var(--border); background: #F8FAFF; }
+    .balance-loading { font-size: 14px; color: var(--text-muted); }
+    .balance-error { font-size: 13px; color: #7A4800; background: #FFF8E6; border: 1px solid var(--accent2); border-radius: 8px; padding: 10px 14px; line-height: 1.6; }
+    .balance-title { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 12px; }
+    .balance-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    @media (max-width: 600px) { .balance-grid { grid-template-columns: repeat(2, 1fr); } }
+    .balance-item { background: #fff; border: 1.5px solid var(--primary-pale); border-radius: 10px; padding: 12px 8px; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; }
+    .balance-item .b-emoji { font-size: 20px; }
+    .balance-item .b-label { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+    .balance-item .b-num { font-size: 24px; font-weight: 700; color: var(--primary); line-height: 1.2; }
+    .balance-item .b-num.low { color: var(--error); }
+    .balance-item .b-sub { font-size: 11px; color: var(--text-muted); }
+
     /* ── Info note ── */
     .info-note { background: #FFFBF0; border: 1px solid var(--accent2); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #5A3E00; display: flex; gap: 8px; align-items: flex-start; }
     .info-note .note-icon { flex-shrink: 0; font-size: 16px; }
@@ -211,9 +225,9 @@
             <span class="field-error" id="empName-err">กรุณากรอกชื่อ-นามสกุล</span>
           </div>
           <div class="form-group">
-            <label for="empId">รหัสพนักงาน <span class="req">*</span></label>
-            <input type="text" id="empId" placeholder="เช่น APD-001" />
-            <span class="field-error" id="empId-err">กรุณากรอกรหัสพนักงาน</span>
+            <label for="empId">รหัสพนักงาน <span class="req">*</span><span class="hint">ตัวเลข 8 หลัก</span></label>
+            <input type="text" id="empId" placeholder="เช่น 20250201" inputmode="numeric" maxlength="8" autocomplete="off" />
+            <span class="field-error" id="empId-err">กรุณากรอกรหัสพนักงานเป็นตัวเลข 8 หลัก</span>
           </div>
           <div class="form-group">
             <label for="department">แผนก <span class="req">*</span></label>
@@ -242,6 +256,24 @@
             <label for="phone">เบอร์โทรติดต่อ <span class="req">*</span></label>
             <input type="tel" id="phone" placeholder="08X-XXX-XXXX" autocomplete="tel" />
             <span class="field-error" id="phone-err">กรุณากรอกเบอร์โทร</span>
+          </div>
+        </div>
+
+        <!-- ── วันลาคงเหลือ (แสดงเมื่อชื่อ + รหัส 8 หลักตรงกับระบบ) ── -->
+        <div class="balance-box" id="balanceBox" style="display:none">
+          <div class="balance-loading" id="balanceLoading">⏳ กำลังตรวจสอบวันลาคงเหลือ...</div>
+          <div class="balance-error" id="balanceError" style="display:none">
+            🔒 ไม่พบข้อมูลวันลา — กรุณาตรวจสอบว่า <strong>ชื่อ-นามสกุล</strong> และ <strong>รหัสพนักงาน</strong>
+            ตรงกับที่ลงทะเบียนไว้กับ HR (ระบบจะแสดงยอดเมื่อข้อมูลตรงกันเท่านั้น)
+          </div>
+          <div id="balanceResult" style="display:none">
+            <div class="balance-title">📊 วันลาคงเหลือของคุณ ปี <span id="balanceYear"></span></div>
+            <div class="balance-grid">
+              <div class="balance-item"><span class="b-emoji">🏖️</span><span class="b-label">พักร้อน</span><span class="b-num" id="bal-vacation">-</span><span class="b-sub" id="bal-vacation-sub"></span></div>
+              <div class="balance-item"><span class="b-emoji">🤒</span><span class="b-label">ลาป่วย</span><span class="b-num" id="bal-sick">-</span><span class="b-sub" id="bal-sick-sub"></span></div>
+              <div class="balance-item"><span class="b-emoji">📝</span><span class="b-label">ลากิจ</span><span class="b-num" id="bal-personal">-</span><span class="b-sub" id="bal-personal-sub"></span></div>
+              <div class="balance-item"><span class="b-emoji">🎂</span><span class="b-label">ลาวันเกิด</span><span class="b-num" id="bal-birthday">-</span><span class="b-sub" id="bal-birthday-sub"></span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -601,7 +633,7 @@ function updateSummary() {
 // ── Progress steps ──
 function updateProgressSteps() {
   const s1Done = !!(document.getElementById('empName').value.trim().length > 1 &&
-    document.getElementById('empId').value.trim() &&
+    /^\d{8}$/.test(document.getElementById('empId').value.trim()) &&
     document.getElementById('department').value &&
     document.getElementById('position').value.trim());
   const s2Done = !!getLeaveType();
@@ -623,6 +655,94 @@ document.querySelectorAll('input:not([type=radio]):not([type=checkbox]):not([typ
   el.addEventListener('change', updateProgressSteps);
 });
 
+// ── วันลาคงเหลือ (ดึงจากชีท "สรุปวันลา" ผ่าน Apps Script) ──
+// แสดงเฉพาะเมื่อ "ชื่อ-นามสกุล + รหัสพนักงาน 8 หลัก" ตรงกับระบบเท่านั้น
+let currentBalance   = null;
+let balanceTimer     = null;
+let balanceFetchSeq  = 0;
+const BAL_TYPE_MAP = { 'ลาพักร้อน': 'vacation', 'ลาป่วย': 'sick', 'ลากิจ': 'personal', 'ลาวันเกิด': 'birthday' };
+const DAYS_INFO_DEFAULT = { 'lt-sick': 'ได้ 30 วัน/ปี', 'lt-annual': 'ได้ 7 วัน/ปี', 'lt-personal': 'ได้ 3 วัน/ปี', 'lt-birthday': 'ได้ 1 วัน/ปี' };
+const empNameEl = document.getElementById('empName');
+const empIdEl   = document.getElementById('empId');
+
+empIdEl.addEventListener('input', () => {
+  // บังคับให้กรอกได้เฉพาะตัวเลข สูงสุด 8 หลัก
+  const cleaned = empIdEl.value.replace(/\D/g, '').slice(0, 8);
+  if (cleaned !== empIdEl.value) empIdEl.value = cleaned;
+  scheduleBalanceFetch();
+});
+empNameEl.addEventListener('input', scheduleBalanceFetch);
+
+function scheduleBalanceFetch() {
+  clearTimeout(balanceTimer);
+  currentBalance = null;
+  balanceFetchSeq++; // ยกเลิกผลลัพธ์ที่ค้างอยู่
+  const name = empNameEl.value.trim();
+  const id   = empIdEl.value.trim();
+  if (!/^\d{8}$/.test(id) || name.length < 2) {
+    document.getElementById('balanceBox').style.display = 'none';
+    resetLeaveTypeInfo();
+    return;
+  }
+  balanceTimer = setTimeout(() => fetchBalance(name, id), 700);
+}
+
+async function fetchBalance(name, id) {
+  const box     = document.getElementById('balanceBox');
+  const loading = document.getElementById('balanceLoading');
+  const errBox  = document.getElementById('balanceError');
+  const result  = document.getElementById('balanceResult');
+  box.style.display    = 'block';
+  loading.style.display = 'block';
+  errBox.style.display  = 'none';
+  result.style.display  = 'none';
+
+  const seq = ++balanceFetchSeq;
+  try {
+    const url = `${CONFIG.APPS_SCRIPT_URL}?action=balance&empId=${encodeURIComponent(id)}&empName=${encodeURIComponent(name)}`;
+    const res  = await fetch(url);
+    const data = await res.json();
+    if (seq !== balanceFetchSeq) return; // มีการพิมพ์ใหม่ระหว่างรอ — ทิ้งผลลัพธ์เก่า
+    if (data.status === 'ok') {
+      currentBalance = data;
+      renderBalance(data);
+    } else {
+      currentBalance = null;
+      loading.style.display = 'none';
+      errBox.style.display  = 'block';
+      resetLeaveTypeInfo();
+    }
+  } catch (e) {
+    if (seq !== balanceFetchSeq) return;
+    // เครือข่ายมีปัญหา — ซ่อนกล่องไปเลย ดีกว่าเสี่ยงแสดงข้อมูลผิด
+    currentBalance = null;
+    box.style.display = 'none';
+    resetLeaveTypeInfo();
+  }
+}
+
+function renderBalance(data) {
+  document.getElementById('balanceLoading').style.display = 'none';
+  document.getElementById('balanceResult').style.display  = 'block';
+  document.getElementById('balanceYear').textContent = data.year;
+  [['vacation','lt-annual'],['sick','lt-sick'],['personal','lt-personal'],['birthday','lt-birthday']].forEach(([key, radioId]) => {
+    const b     = data[key];
+    const numEl = document.getElementById('bal-' + key);
+    numEl.textContent = b.remaining;
+    numEl.classList.toggle('low', b.remaining <= 0);
+    document.getElementById('bal-' + key + '-sub').textContent = `จาก ${b.allowed} วัน`;
+    const info = document.querySelector(`label[for="${radioId}"] .days-info`);
+    if (info) info.textContent = `เหลือ ${b.remaining} วัน`;
+  });
+}
+
+function resetLeaveTypeInfo() {
+  Object.keys(DAYS_INFO_DEFAULT).forEach(radioId => {
+    const info = document.querySelector(`label[for="${radioId}"] .days-info`);
+    if (info) info.textContent = DAYS_INFO_DEFAULT[radioId];
+  });
+}
+
 // ── Validation ──
 function validateField(id, ok) {
   const el  = document.getElementById(id);
@@ -635,7 +755,7 @@ function validateForm() {
   const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   let ok = true;
   ok = validateField('empName',   document.getElementById('empName').value.trim().length > 1)  && ok;
-  ok = validateField('empId',     document.getElementById('empId').value.trim().length > 0)    && ok;
+  ok = validateField('empId',     /^\d{8}$/.test(document.getElementById('empId').value.trim())) && ok;
   ok = validateField('department',!!document.getElementById('department').value)                && ok;
   ok = validateField('position',  document.getElementById('position').value.trim().length > 0) && ok;
   ok = validateField('email',     emailRe.test(document.getElementById('email').value.trim()))  && ok;
@@ -677,12 +797,20 @@ document.getElementById('leaveForm').addEventListener('submit', async function(e
     showError('กรุณากำหนดค่า Apps Script URL ใน CONFIG ก่อน'); return;
   }
 
+  const days = getEffectiveWorkingDays();
+
+  // ── กันลาเกินสิทธิ์: ถ้าโหลดยอดคงเหลือได้แล้ว และประเภทนี้มีการนับยอด ──
+  const balKey = BAL_TYPE_MAP[getLeaveType()];
+  if (currentBalance && balKey && days > currentBalance[balKey].remaining) {
+    showError(`ไม่สามารถส่งใบลาได้ — <strong>${getLeaveType()}</strong> คงเหลือ <strong>${currentBalance[balKey].remaining} วัน</strong> แต่ขอลา <strong>${days} วัน</strong><br>กรุณาปรับวันลา หรือติดต่อ HR`);
+    return;
+  }
+
   const btn = document.getElementById('submitBtn');
   btn.classList.add('loading'); btn.disabled = true;
 
   const refNum = genRef();
   const s = startEl.value, e = endEl.value;
-  const days = getEffectiveWorkingDays();
   const halfDay = getHalfDay();
 
   const payload = {
@@ -743,6 +871,11 @@ function resetForm() {
   document.getElementById('medCertSection').style.display = 'none';
   document.getElementById('filePreview').textContent = '';
   medCertData = null;
+  currentBalance = null;
+  balanceFetchSeq++;
+  clearTimeout(balanceTimer);
+  document.getElementById('balanceBox').style.display = 'none';
+  resetLeaveTypeInfo();
   updateProgressSteps();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
